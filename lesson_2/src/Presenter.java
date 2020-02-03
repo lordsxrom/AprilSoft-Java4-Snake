@@ -1,6 +1,8 @@
 import objects.Map;
 import enums.GameState;
 
+import java.awt.image.BufferedImage;
+
 public class Presenter implements ViewListener, ModelListener {
 
     private final View view;
@@ -14,7 +16,6 @@ public class Presenter implements ViewListener, ModelListener {
         view.addListener(this);
 
         model.start();
-        view.start();
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Presenter implements ViewListener, ModelListener {
     }
 
     @Override
-    public void updateMap(Map map) {
+    public void updateMap(BufferedImage map) {
         view.updateMap(map);
     }
 

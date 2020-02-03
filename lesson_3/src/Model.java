@@ -53,7 +53,7 @@ public class Model {
 
                     map.update();
 
-                    listener.updateMap(map);
+                    listener.updateMap(map.draw());
                     listener.updateGameState(state);
                     listener.updateScore(score);
                 }
@@ -93,7 +93,7 @@ public class Model {
 
         listener.updateScore(score);
         listener.updateGameState(state);
-        listener.updateMap(map);
+        listener.updateMap(map.draw());
 
         timer.start();
     }

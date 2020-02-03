@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class View {
 
@@ -19,8 +20,7 @@ public class View {
 
     private JPanel mainPanel;
 
-    private Timer timer;
-    private Map map;
+    private BufferedImage map;
 
     public View() {
         initImages();
@@ -33,7 +33,7 @@ public class View {
     }
 
     private void initImages() {
-        for (enums.Box box : Box.values()) {
+        for (Box box : Box.values()) {
             box.image = getImage(box.name().toLowerCase());
         }
     }
@@ -49,11 +49,7 @@ public class View {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                for (Coord coord : Ranges.getCoords()) {
-                    g.drawImage((Image) map.getBox(coord).image,
-                            coord.x * IMAGE_SIZE, coord.y * IMAGE_SIZE,
-                            IMAGE_SIZE, IMAGE_SIZE, null);
-                }
+                g.drawImage(map, 0, 0, null);
             }
         };
 
@@ -93,13 +89,6 @@ public class View {
 
         mainPanel.setPreferredSize(new Dimension(Ranges.COLS * IMAGE_SIZE,
                 Ranges.ROWS * IMAGE_SIZE));
-
-        timer = new Timer(15, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainPanel.repaint();
-            }
-        });
     }
 
     private void initFrame() {
@@ -116,12 +105,9 @@ public class View {
         frame.pack();
     }
 
-    public void start() {
-        timer.start();
-    }
-
-    public void updateMap(Map map) {
+    public void updateMap(BufferedImage map) {
         this.map = map;
+        mainPanel.repaint();
     }
 
     public void updateScore(int score) {

@@ -31,21 +31,6 @@ public class Ranges {
         return new Coord(random.nextInt(lastCoord.x), random.nextInt(lastCoord.y));
     }
 
-    public static ArrayList<Coord> getCoordsAround(Coord coord) {
-        ArrayList<Coord> list = new ArrayList<>();
-        for (int x = coord.x - 1; x <= coord.x + 1; x++) {
-            for (int y = coord.y - 1; y <= coord.y + 1; y++) {
-                Coord around;
-                if (inRange(around = new Coord(x, y))) {
-                    if (!around.equals(coord)) {
-                        list.add(around);
-                    }
-                }
-            }
-        }
-        return list;
-    }
-
     public static Coord getLastCoord() {
         return lastCoord;
     }

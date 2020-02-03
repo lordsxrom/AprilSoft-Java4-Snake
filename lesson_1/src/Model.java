@@ -1,6 +1,6 @@
-import objects.Map;
 import enums.GameState;
 import objects.Head;
+import objects.Map;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,7 @@ public class Model {
 
                     map.update();
 
-                    listener.updateMap(map);
+                    listener.updateMap(map.draw());
                     listener.updateGameState(state);
                     listener.updateScore(score);
                 }
@@ -59,7 +59,7 @@ public class Model {
 
         listener.updateScore(score);
         listener.updateGameState(state);
-        listener.updateMap(map);
+        listener.updateMap(map.draw());
 
         timer.start();
     }

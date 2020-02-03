@@ -4,7 +4,12 @@ import enums.Box;
 import utils.Coord;
 import utils.Ranges;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Map {
+
+    private final static int IMAGE_SIZE = 30; // размер картинки одинаковый по x и по y
 
     private Head head;
     private Box[][] matrix;
@@ -30,11 +35,18 @@ public class Map {
         matrix[head.getCurCoord().x][head.getCurCoord().y] = Box.HEAD;
     }
 
-    public Box getBox(Coord coord) {
-        if (Ranges.inRange(coord)) {
-            return matrix[coord.x][coord.y];
+    public BufferedImage draw() {
+        BufferedImage img = new BufferedImage(Ranges.COLS * IMAGE_SIZE,
+                Ranges.ROWS * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+        Graphics g = img.getGraphics();
+
+        for (Coord coord : Ranges.getCoords()) {
+            g.drawImage((Image) matrix[coord.x][coord.y].image,
+                    coord.x * IMAGE_SIZE, coord.y * IMAGE_SIZE,
+                    IMAGE_SIZE, IMAGE_SIZE, null);
         }
-        return null;
+
+        return img;
     }
 
 }
