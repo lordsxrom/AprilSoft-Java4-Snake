@@ -27,6 +27,10 @@ public class Ranges {
         return coord.x >= 0 && coord.x <= lastCoord.x && coord.y >= 0 && coord.y <= lastCoord.y;
     }
 
+    public static Coord getLastCoord() {
+        return lastCoord;
+    }
+
     public static ArrayList<Coord> getCoords() {
         return coords;
     }
