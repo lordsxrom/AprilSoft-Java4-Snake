@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class View {
 
-    private final static int IMAGE_SIZE = 30; // размер картинки одинаковый по x и по y
+    private final static int IMAGE_SIZE = 30;
 
     private ViewListener listener;
 
@@ -54,6 +55,7 @@ public class View {
         topPanel.add(scoreLabel);
 
         JButton startButton = new JButton("New Game");
+        startButton.setFocusable(false);
         startButton.setForeground(Color.BLUE);
         startButton.setFont(new Font("serif", Font.PLAIN, 20));
         startButton.addActionListener(new ActionListener() {
@@ -65,6 +67,7 @@ public class View {
         topPanel.add(startButton);
 
         JButton endButton = new JButton();
+        endButton.setFocusable(false);
         endButton.setText("Exit");
         endButton.setForeground(Color.RED);
         endButton.setFont(new Font("serif", Font.PLAIN, 20));
@@ -86,38 +89,29 @@ public class View {
             }
         };
 
-        mainPanel.registerKeyboardAction(new ActionListener() {
+        mainPanel.addKeyListener(new KeyListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("UP");
-                listener.onButtonClicked(Head.DIR_UP);
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+            public void keyTyped(KeyEvent e) {
 
-        mainPanel.registerKeyboardAction(new ActionListener() {
+            }
+
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("DOWN");
-                listener.onButtonClicked(Head.DIR_DOWN);
+            public void keyPressed(KeyEvent e) {
+                int btn = e.getKeyCode();
+                System.out.println("View->keyPressed->key:" + btn);
+                if (btn == KeyEvent.VK_UP) listener.onButtonClicked(Head.DIR_UP);
+                if (btn == KeyEvent.VK_LEFT) listener.onButtonClicked(Head.DIR_LEFT);
+                if (btn == KeyEvent.VK_RIGHT) listener.onButtonClicked(Head.DIR_RIGHT);
+                if (btn == KeyEvent.VK_DOWN) listener.onButtonClicked(Head.DIR_DOWN);
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        mainPanel.registerKeyboardAction(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("LEFT");
-                listener.onButtonClicked(Head.DIR_LEFT);
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+            public void keyReleased(KeyEvent e) {
 
-        mainPanel.registerKeyboardAction(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("RIGHT");
-                listener.onButtonClicked(Head.DIR_RIGHT);
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        });
 
+        mainPanel.setFocusable(true);
         mainPanel.setPreferredSize(new Dimension(Ranges.COLS * IMAGE_SIZE,
                 Ranges.ROWS * IMAGE_SIZE));
     }
@@ -130,10 +124,9 @@ public class View {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setIconImage(getImage("icon"));
-
         frame.setLayout(new BorderLayout());
-        frame.add(topPanel, BorderLayout.NORTH);
         frame.add(mainPanel, BorderLayout.CENTER);
+        frame.add(topPanel, BorderLayout.NORTH);
         frame.pack();
     }
 
