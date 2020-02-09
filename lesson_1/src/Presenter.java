@@ -24,7 +24,7 @@ public class Presenter implements ViewListener, ModelListener {
 
     @Override
     public void onButtonStartClicked() {
-        model.start();
+
     }
 
     @Override
@@ -34,11 +34,11 @@ public class Presenter implements ViewListener, ModelListener {
 
     @Override
     public void updateScore(int score) {
-        view.updateScore(score);
+
     }
 
     @Override
     public void updateGameState(GameState state) {
-        view.updateGameState(state);
+
     }
 }

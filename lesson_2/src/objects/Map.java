@@ -41,6 +41,7 @@ public class Map {
         }
 
         matrix[head.getCurCoord().x][head.getCurCoord().y] = Box.HEAD;
+
         // TODO: lesson 2
         matrix[apple.getCoord().x][apple.getCoord().y] = Box.APPLE;
     }

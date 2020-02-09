@@ -78,15 +78,13 @@ public class Model {
         state = GameState.PLAY;
 
         head = new Head();
-        apple = new Apple();
-
-        // TODO: lesson 3
-        body = new Body();
-
         map.setHead(head);
+
+        apple = new Apple();
         map.setApple(apple);
 
         // TODO: lesson 3
+        body = new Body();
         map.setBody(body);
 
         map.update();

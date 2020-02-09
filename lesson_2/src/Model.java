@@ -62,14 +62,12 @@ public class Model {
         state = GameState.PLAY;
 
         head = new Head();
-
-        // TODO: lesson 2
-        apple = new Apple();
-
         map.setHead(head);
 
         // TODO: lesson 2
+        apple = new Apple();
         map.setApple(apple);
+
         map.update();
 
         listener.updateScore(score);
